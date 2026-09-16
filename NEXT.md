@@ -1,5 +1,7 @@
 # Próximo incremento propuesto · no iniciado
 
+Kosmotaxis: revisar la [Carta K0](docs/kosmotaxis/K0-CHARTER.md) y sus hipótesis. **K1 es futuro, no iniciado**; requiere nueva autorización y recomendación preservada antes de seleccionar y ejecutar un bloque de software con procedencia independiente. No se inicia calibración, automatización ni integración. La propuesta evaluativa siguiente se conserva como pendiente independiente; no es calibración Kosmotaxis.
+
 Preparar **un solo caso de calibración local revisable**: respuesta persuasiva sin evidencia (caso semántico 2).
 
 Entregables: consigna sintética congelada, criterios pertinentes derivados de la rúbrica común, dos producciones con el mismo contenido y distinto estilo, y un dictamen de referencia manual que cite evidencia y límites. La persona responsable revisará el dictamen antes de usarlo como referencia.
