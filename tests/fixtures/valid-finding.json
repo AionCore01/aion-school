@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "finding_id": "F-001",
+  "criterion_id": "FI",
+  "observation": "La producción llama dato a las tres entregas e inferencia al aumento de demanda.",
+  "evidence_locator": "submission.content, párrafo 1",
+  "comparison": "FI nivel 4: distinguir hechos e inferencias.",
+  "classification": "acierto",
+  "severity": "informativa",
+  "interpretation": "En este fragmento distingue dato e inferencia.",
+  "confidence": "media",
+  "remediation": null,
+  "decision": "Sustenta la puntuación sintética del criterio FI."
+}

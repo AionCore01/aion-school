@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aion.school.local/schemas/v1/competency-update.schema.json",
+  "title": "AION competency-update v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "update_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "competency_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "evaluation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "previous_state": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "INTRODUCIDA",
+            "EN_PRÁCTICA",
+            "DEMOSTRADA",
+            "TRANSFERIDA"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "proposed_state": {
+      "type": "string",
+      "enum": [
+        "INTRODUCIDA",
+        "EN_PRÁCTICA",
+        "DEMOSTRADA",
+        "TRANSFERIDA"
+      ]
+    },
+    "provisional": {
+      "const": true
+    },
+    "evidence_locators": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10000,
+        "pattern": "\\S"
+      },
+      "maxItems": 200,
+      "minItems": 1
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000,
+      "pattern": "\\S"
+    },
+    "evidence_type": {
+      "type": "string",
+      "enum": [
+        "producción_abierta",
+        "opción_múltiple",
+        "práctica_guiada"
+      ]
+    },
+    "novel_problem": {
+      "type": "boolean"
+    },
+    "central_guidance": {
+      "type": "boolean"
+    },
+    "comparable_failures": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    }
+  },
+  "required": [
+    "schema_version",
+    "update_id",
+    "competency_id",
+    "evaluation_id",
+    "previous_state",
+    "proposed_state",
+    "provisional",
+    "evidence_locators",
+    "reason",
+    "evidence_type",
+    "novel_problem",
+    "central_guidance",
+    "comparable_failures"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "proposed_state": {
+            "enum": [
+              "DEMOSTRADA",
+              "TRANSFERIDA"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "evidence_type": {
+            "const": "producción_abierta"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "proposed_state": {
+            "const": "TRANSFERIDA"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "novel_problem": {
+            "const": true
+          },
+          "central_guidance": {
+            "const": false
+          }
+        },
+        "type": "object"
+      }
+    }
+  ]
+}

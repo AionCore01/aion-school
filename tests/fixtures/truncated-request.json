@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.0.0",
+  "evaluation_id": "EV-2026-09-0001",
+  "evaluator_version": "0.1",
+  "mode": "formativo",
+  "course_id": "fixture-course",
+  "lesson_id": "fixture-lesson",
+  "task_id": "fixture-task",
+  "locale": "es-AR",
+  "task_brief": "En el texto simulado, distinguí el dato observado de la inferencia. Citá el párrafo.",
+  "allowed_materials": [
+    "Texto simulado incluido en la consigna: el registro informa tres entregas."
+  ],
+  "prohibited_assistance": [],
+  "expected_evidence": [
+    "Dato e inferencia identificados y localizados."
+  ],
+  "competency_ids": [
+    "COMP-FI"
+  ],
+  "criterion_ids": [
+    "FI",
+    "EV"
+  ],
+  "rubric_id": "common-rubric",
+  "rubric_version": "1.0.0",
+  "rubric": {
+    "schema_version": "1.0.0",
+    "rubric_id": "common-rubric",
+    "rubric_version": "1.0.0",
+    "title": "Matriz común de desempeño observable de AION",
+    "dimensions": [
+      {
+        "criterion_id": "EV",
+        "name": "Evidencia",
+        "levels": {
+          "0": "No aporta evidencia para la afirmación central o presenta evidencia fabricada.",
+          "1": "Aporta un dato relacionado, pero no identifica su origen ni permite localizarlo.",
+          "2": "Aporta evidencia para parte de las afirmaciones; faltan ubicaciones verificables en otras.",
+          "3": "Vincula las afirmaciones centrales con evidencia localizable e identifica vacíos secundarios.",
+          "4": "Sustenta las afirmaciones relevantes con evidencia pertinente, suficiente y localizable, y explicita su alcance."
+        }
+      },
+      {
+        "criterion_id": "FI",
+        "name": "Hecho e inferencia",
+        "levels": {
+          "0": "Presenta como dato observado una inferencia de la conclusión central.",
+          "1": "Identifica un dato observado, pero mezcla supuestos e inferencias sin señalarlos.",
+          "2": "Separa hechos e inferencias en parte del análisis, con mezclas identificables en otros pasajes.",
+          "3": "Etiqueta hechos, supuestos e inferencias centrales; deja una distinción secundaria sin explicitar.",
+          "4": "Distingue sistemáticamente hechos, supuestos e inferencias y muestra qué datos sostienen cada inferencia."
+        }
+      },
+      {
+        "criterion_id": "HA",
+        "name": "Hipótesis alternativas",
+        "levels": {
+          "0": "Afirma una única explicación y no considera alternativas cuando la tarea las exige.",
+          "1": "Nombra otra explicación, pero no indica cómo explicaría los datos.",
+          "2": "Propone alternativas relacionadas con los datos, sin precisar evidencia que permita distinguirlas.",
+          "3": "Explica dos alternativas plausibles e identifica una observación que favorecería a una sobre otra.",
+          "4": "Compara alternativas plausibles mediante predicciones distintas y propone evidencia que permita discriminarlas."
+        }
+      },
+      {
+        "criterion_id": "RC",
+        "name": "Razonamiento causal",
+        "levels": {
+          "0": "Afirma causalidad sin describir un mecanismo ni aportar evidencia del vínculo.",
+          "1": "Propone un mecanismo, pero omite los pasos que conectan causa y efecto.",
+          "2": "Describe parte de la cadena causal y deja sin justificar al menos un vínculo central.",
+          "3": "Explicita la cadena causal y su evidencia, e identifica un límite o explicación rival.",
+          "4": "Explica mecanismo, condiciones y límites, y contrasta causas rivales con la evidencia disponible."
+        }
+      },
+      {
+        "criterion_id": "IN",
+        "name": "Incertidumbre",
+        "levels": {
+          "0": "Expresa certeza en una conclusión que la evidencia disponible no permite sostener.",
+          "1": "Añade una reserva genérica sin identificar qué parte de la conclusión es incierta.",
+          "2": "Identifica limitaciones concretas, pero no ajusta consistentemente la confianza de sus conclusiones.",
+          "3": "Asigna confianza acorde con la evidencia central e indica qué datos faltan para revisarla.",
+          "4": "Calibra cada conclusión relevante, identifica datos faltantes y explica qué evidencia cambiaría su confianza."
+        }
+      },
+      {
+        "criterion_id": "CF",
+        "name": "Contraevidencia",
+        "levels": {
+          "0": "Ignora evidencia contraria presentada que afecta la conclusión central.",
+          "1": "Menciona una objeción, pero la descarta sin examinar su evidencia.",
+          "2": "Examina parte de una objeción, dejando sin responder un elemento que afecta la conclusión.",
+          "3": "Contrasta objeciones relevantes y ajusta la conclusión cuando la contraevidencia lo exige.",
+          "4": "Busca activamente evidencia que pueda refutar su hipótesis y explicita cómo afectaría su conclusión."
+        }
+      },
+      {
+        "criterion_id": "ST",
+        "name": "Síntesis",
+        "levels": {
+          "0": "Omite o deforma un elemento central hasta cambiar el significado del material.",
+          "1": "Recupera elementos aislados, sin expresar la conclusión o relación principal.",
+          "2": "Conserva el significado central, pero mezcla conclusiones, detalles y antecedentes sin jerarquía.",
+          "3": "Ordena conclusión, fundamentos y límites; conserva algún detalle prescindible para el destinatario.",
+          "4": "Jerarquiza conclusión, evidencia y límites con precisión y responde a la necesidad declarada del destinatario."
+        }
+      },
+      {
+        "criterion_id": "TR",
+        "name": "Trazabilidad",
+        "levels": {
+          "0": "No permite reconstruir el origen de la conclusión ni los pasos que la produjeron.",
+          "1": "Nombra fuentes o pasos aislados, sin vincularlos con el resultado.",
+          "2": "Registra parte de las fuentes y operaciones, con huecos que impiden reconstruir un paso relevante.",
+          "3": "Permite reconstruir fuentes y operaciones centrales, dejando una referencia secundaria incompleta.",
+          "4": "Documenta fuentes, versiones y operaciones de modo que otra persona pueda revisar el proceso completo."
+        }
+      },
+      {
+        "criterion_id": "LT",
+        "name": "Legalidad y ética",
+        "levels": {
+          "0": "Ejecuta o propone un procedimiento que infringe un límite obligatorio o introduce un riesgo grave sin control.",
+          "1": "Menciona límites generales, pero omite el límite aplicable al procedimiento propuesto.",
+          "2": "Identifica límites aplicables y deja sin resolver cómo cumplirlos durante la tarea.",
+          "3": "Adapta el procedimiento a los límites aplicables e identifica un control que aún debe verificarse.",
+          "4": "Integra autorización, minimización de datos y controles pertinentes en el procedimiento y documenta su cumplimiento."
+        }
+      },
+      {
+        "criterion_id": "TC",
+        "name": "Competencia técnica",
+        "levels": {
+          "0": "Entrega un resultado que no satisface la operación técnica central o no puede ejecutarse.",
+          "1": "Ejecuta una parte de la operación, pero obtiene un resultado central incorrecto o incompleto.",
+          "2": "Ejecuta la operación principal con fallos relevantes que identifica mediante ejemplos reproducibles.",
+          "3": "Obtiene el resultado requerido y ejecuta pruebas pertinentes; deja una limitación secundaria sin documentar.",
+          "4": "Obtiene el resultado requerido, lo verifica con pruebas pertinentes y documenta procedimiento y límites."
+        }
+      },
+      {
+        "criterion_id": "RV",
+        "name": "Revisión",
+        "levels": {
+          "0": "Mantiene el error señalado sin examinar la evidencia contraria disponible.",
+          "1": "Reconoce la objeción, pero no contrasta ni modifica el razonamiento afectado.",
+          "2": "Corrige el resultado con ayuda que identifica el paso defectuoso.",
+          "3": "Revisa por iniciativa propia el paso afectado y explica el cambio a partir de la evidencia.",
+          "4": "Modifica el criterio ante evidencia contraria, conserva la decisión anterior y comprueba la corrección en otro caso."
+        }
+      },
+      {
+        "criterion_id": "AU",
+        "name": "Autonomía",
+        "levels": {
+          "0": "No completa la operación central bajo las condiciones y ayudas declaradas.",
+          "1": "Completa pasos aislados siguiendo indicaciones que determinan el procedimiento central.",
+          "2": "Completa la tarea con guía sustancial y declara qué decisiones recibió de otra fuente.",
+          "3": "Completa y explica el procedimiento central sin guía, solicitando ayuda sólo en aspectos secundarios declarados.",
+          "4": "Completa, verifica y explica sus decisiones sin guía sobre el procedimiento central, y declara toda asistencia utilizada."
+        }
+      }
+    ]
+  },
+  "source_pack_id": null,
+  "time_limit_minutes": null,
+  "submission": {
+    "content": "Párrafo 1. El registro informa tres entregas (dato). Que la demanda aumentó es una inferencia no demostrada por ese dato.",
+    "submitted_at": "2026-09-15T18:00:00Z",
+    "declared_assistance": []
+  },
+  "execution_metadata": {
+    "active_minutes": null,
+    "attempts": 1,
+    "interruptions": null
+  },
+  "preflight_checks": {
+    "artifact_readable": {
+      "state": "PASS",
+      "asserted_by": "SYSTEM",
+      "assertion_ref": "fixture-artifact-inspector",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "artifact_not_truncated": {
+      "state": "FAIL",
+      "asserted_by": "SYSTEM",
+      "assertion_ref": "fixture-artifact-inspector",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "required_materials_available": {
+      "state": "PASS",
+      "asserted_by": "AUTHORIZED_COMPONENT",
+      "assertion_ref": "fixture-package-builder",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "response_matches_task": {
+      "state": "PASS",
+      "asserted_by": "HUMAN_REVIEW",
+      "assertion_ref": "fixture-review-001",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "task_brief_semantically_complete": {
+      "state": "PASS",
+      "asserted_by": "HUMAN_REVIEW",
+      "assertion_ref": "fixture-review-001",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "criteria_and_restrictions_disclosed": {
+      "state": "PASS",
+      "asserted_by": "AUTHORIZED_COMPONENT",
+      "assertion_ref": "fixture-package-builder",
+      "checked_at": "2026-09-15T17:55:00Z"
+    }
+  }
+}

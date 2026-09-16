@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "update_id": "UP-001",
+  "competency_id": "COMP-FI",
+  "evaluation_id": "EV-2026-09-0001",
+  "previous_state": "EN_PRÁCTICA",
+  "proposed_state": "DEMOSTRADA",
+  "provisional": true,
+  "evidence_locators": [
+    "submission.content, párrafo 1"
+  ],
+  "reason": "Propuesta sintética para validación estructural.",
+  "evidence_type": "opción_múltiple",
+  "novel_problem": false,
+  "central_guidance": false,
+  "comparable_failures": 0
+}

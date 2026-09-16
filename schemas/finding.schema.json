@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aion.school.local/schemas/v1/finding.schema.json",
+  "title": "AION finding v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "finding_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "criterion_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "observation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000,
+      "pattern": "\\S"
+    },
+    "evidence_locator": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000,
+      "pattern": "\\S"
+    },
+    "comparison": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000,
+      "pattern": "\\S"
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "acierto",
+        "error",
+        "omisión",
+        "preferencia",
+        "desacuerdo_fundamentado"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "informativa",
+        "menor",
+        "mayor",
+        "crítica"
+      ]
+    },
+    "interpretation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000,
+      "pattern": "\\S"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "baja",
+        "media",
+        "alta"
+      ]
+    },
+    "remediation": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000,
+          "pattern": "\\S"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "decision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000,
+      "pattern": "\\S"
+    }
+  },
+  "required": [
+    "schema_version",
+    "finding_id",
+    "criterion_id",
+    "observation",
+    "evidence_locator",
+    "comparison",
+    "classification",
+    "severity",
+    "interpretation",
+    "confidence",
+    "remediation",
+    "decision"
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "evaluation_id": "EV-2026-09-0001",
+  "status": "completed",
+  "preflight": {
+    "status": "LISTO",
+    "warnings": [],
+    "blockers": [],
+    "confidence_limit": "alta",
+    "checks": {
+      "artifact_readable": {
+        "state": "PASS",
+        "asserted_by": "SYSTEM",
+        "assertion_ref": "fixture-artifact-inspector",
+        "checked_at": "2026-09-15T17:55:00Z"
+      },
+      "artifact_not_truncated": {
+        "state": "PASS",
+        "asserted_by": "SYSTEM",
+        "assertion_ref": "fixture-artifact-inspector",
+        "checked_at": "2026-09-15T17:55:00Z"
+      },
+      "required_materials_available": {
+        "state": "PASS",
+        "asserted_by": "AUTHORIZED_COMPONENT",
+        "assertion_ref": "fixture-package-builder",
+        "checked_at": "2026-09-15T17:55:00Z"
+      },
+      "response_matches_task": {
+        "state": "PASS",
+        "asserted_by": "HUMAN_REVIEW",
+        "assertion_ref": "fixture-review-001",
+        "checked_at": "2026-09-15T17:55:00Z"
+      },
+      "task_brief_semantically_complete": {
+        "state": "PASS",
+        "asserted_by": "HUMAN_REVIEW",
+        "assertion_ref": "fixture-review-001",
+        "checked_at": "2026-09-15T17:55:00Z"
+      },
+      "criteria_and_restrictions_disclosed": {
+        "state": "PASS",
+        "asserted_by": "AUTHORIZED_COMPONENT",
+        "assertion_ref": "fixture-package-builder",
+        "checked_at": "2026-09-15T17:55:00Z"
+      }
+    }
+  },
+  "result": "COMPETENTE",
+  "result_confidence": "media",
+  "executive_summary": "Ejemplo sintético escrito a mano para validar estructura; no es una evaluación ejecutada.",
+  "criteria": [
+    {
+      "criterion_id": "FI",
+      "score": 4,
+      "required": true,
+      "findings": [
+        "F-001"
+      ],
+      "reason": "Distingue explícitamente dato e inferencia en el párrafo 1."
+    }
+  ],
+  "findings": [
+    {
+      "schema_version": "1.0.0",
+      "finding_id": "F-001",
+      "criterion_id": "FI",
+      "observation": "La producción llama dato a las tres entregas e inferencia al aumento de demanda.",
+      "evidence_locator": "submission.content, párrafo 1",
+      "comparison": "FI nivel 4: distinguir hechos e inferencias.",
+      "classification": "acierto",
+      "severity": "informativa",
+      "interpretation": "En este fragmento distingue dato e inferencia.",
+      "confidence": "media",
+      "remediation": null,
+      "decision": "Sustenta la puntuación sintética del criterio FI."
+    }
+  ],
+  "strengths": [
+    {
+      "claim": "Separa dato e inferencia.",
+      "evidence_locator": "submission.content, párrafo 1"
+    }
+  ],
+  "priority_corrections": [],
+  "uncertainties": [
+    "Fixture estructural, sin evaluación real."
+  ],
+  "alternative_interpretations": [],
+  "mastery_updates": [],
+  "repair_task": null,
+  "appeal": {
+    "available": false,
+    "rubric_frozen_at": null
+  },
+  "audit": {
+    "evaluator_version": "0.1",
+    "prompt_version": null,
+    "rubric_version": "1.0.0",
+    "timestamp": "2026-09-15T18:00:00Z",
+    "model": null
+  }
+}

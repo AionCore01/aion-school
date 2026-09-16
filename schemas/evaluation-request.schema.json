@@ -1,0 +1,302 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aion.school.local/schemas/v1/evaluation-request.schema.json",
+  "title": "AION evaluation-request v1",
+  "definitions": {
+    "preflightCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": { "type": "string", "enum": ["PASS", "FAIL", "NOT_CHECKED"] },
+        "asserted_by": { "type": "string", "enum": ["SYSTEM", "HUMAN_REVIEW", "AUTHORIZED_COMPONENT"] },
+        "assertion_ref": { "type": "string", "minLength": 1, "maxLength": 256, "pattern": "\\S" },
+        "checked_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["state", "asserted_by", "assertion_ref", "checked_at"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "evaluation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "evaluator_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000,
+      "pattern": "\\S"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "diagnóstico",
+        "formativo",
+        "sumativo",
+        "transferencia",
+        "cronometrado",
+        "revisión",
+        "calibración"
+      ]
+    },
+    "course_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "lesson_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "locale": {
+      "const": "es-AR"
+    },
+    "task_brief": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 100000
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "allowed_materials": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10000,
+        "pattern": "\\S"
+      },
+      "maxItems": 200
+    },
+    "prohibited_assistance": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10000,
+        "pattern": "\\S"
+      },
+      "maxItems": 200
+    },
+    "expected_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10000,
+        "pattern": "\\S"
+      },
+      "maxItems": 200,
+      "minItems": 1
+    },
+    "competency_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+      },
+      "maxItems": 200,
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "criterion_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+      },
+      "maxItems": 200,
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "rubric_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "rubric_version": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "rubric": {
+      "anyOf": [
+        {
+          "$ref": "https://aion.school.local/schemas/v1/rubric.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source_pack_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "time_limit_minutes": {
+      "anyOf": [
+        {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1440
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "submission": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "content": {
+              "anyOf": [
+                { "type": "string", "maxLength": 1000000 },
+                { "type": "null" }
+              ]
+            },
+            "submitted_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "declared_assistance": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10000,
+                "pattern": "\\S"
+              },
+              "maxItems": 200
+            }
+          },
+          "required": [
+            "submitted_at",
+            "declared_assistance"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "execution_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "active_minutes": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "interruptions": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "active_minutes",
+        "attempts",
+        "interruptions"
+      ]
+    },
+    "preflight_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifact_readable": { "$ref": "#/definitions/preflightCheck" },
+        "artifact_not_truncated": { "$ref": "#/definitions/preflightCheck" },
+        "required_materials_available": { "$ref": "#/definitions/preflightCheck" },
+        "response_matches_task": { "$ref": "#/definitions/preflightCheck" },
+        "task_brief_semantically_complete": { "$ref": "#/definitions/preflightCheck" },
+        "criteria_and_restrictions_disclosed": { "$ref": "#/definitions/preflightCheck" }
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "evaluation_id",
+    "evaluator_version",
+    "mode",
+    "course_id",
+    "lesson_id",
+    "task_id",
+    "locale",
+    "allowed_materials",
+    "prohibited_assistance",
+    "expected_evidence",
+    "competency_ids",
+    "criterion_ids",
+    "source_pack_id",
+    "time_limit_minutes",
+    "execution_metadata"
+  ]
+}

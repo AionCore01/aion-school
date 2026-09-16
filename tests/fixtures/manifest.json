@@ -1,0 +1,101 @@
+[
+  {
+    "file": "valid-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "LISTO",
+    "exit": 0
+  },
+  {
+    "file": "missing-submission-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "NO_EVALUABLE",
+    "exit": 2
+  },
+  {
+    "file": "missing-rubric-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "NO_EVALUABLE",
+    "exit": 2
+  },
+  {
+    "file": "missing-task-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "NO_EVALUABLE",
+    "exit": 2
+  },
+  {
+    "file": "warning-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "LISTO_CON_ADVERTENCIAS",
+    "exit": 0
+  },
+  {
+    "file": "unknown-property-request.json",
+    "contract": "evaluation-request",
+    "valid": false,
+    "exit": 1
+  },
+  {
+    "file": "truncated-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "NO_EVALUABLE",
+    "exit": 0
+  },
+  {
+    "file": "missing-content-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "NO_EVALUABLE",
+    "exit": 2
+  },
+  {
+    "file": "not-checked-control-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "NO_EVALUABLE",
+    "exit": 0
+  },
+  {
+    "file": "missing-control-request.json",
+    "contract": "evaluation-request",
+    "valid": true,
+    "preflight": "NO_EVALUABLE",
+    "exit": 2
+  },
+  {
+    "file": "valid-result.json",
+    "contract": "evaluation-result",
+    "valid": true
+  },
+  {
+    "file": "missing-locator-result.json",
+    "contract": "evaluation-result",
+    "valid": false
+  },
+  {
+    "file": "valid-finding.json",
+    "contract": "finding",
+    "valid": true
+  },
+  {
+    "file": "valid-rubric.json",
+    "contract": "rubric",
+    "valid": true
+  },
+  {
+    "file": "valid-competency-update.json",
+    "contract": "competency-update",
+    "valid": true
+  },
+  {
+    "file": "invalid-competency-update.json",
+    "contract": "competency-update",
+    "valid": false
+  }
+]

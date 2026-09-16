@@ -1,0 +1,706 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aion.school.local/schemas/v1/evaluation-result.schema.json",
+  "title": "AION evaluation-result v1",
+  "definitions": {
+    "preflightCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": { "type": "string", "enum": ["PASS", "FAIL", "NOT_CHECKED"] },
+        "asserted_by": { "type": "string", "enum": ["SYSTEM", "HUMAN_REVIEW", "AUTHORIZED_COMPONENT"] },
+        "assertion_ref": { "type": "string", "minLength": 1, "maxLength": 256, "pattern": "\\S" },
+        "checked_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["state", "asserted_by", "assertion_ref", "checked_at"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "evaluation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "preflight_only",
+        "completed"
+      ]
+    },
+    "preflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "LISTO",
+            "LISTO_CON_ADVERTENCIAS",
+            "NO_EVALUABLE"
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10000,
+                "pattern": "\\S"
+              },
+              "attribution": {
+                "const": "sistema"
+              },
+              "affects_observation": {
+                "const": true
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "attribution",
+              "affects_observation"
+            ]
+          },
+          "maxItems": 200
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10000,
+                "pattern": "\\S"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "missing_required_input",
+                  "system_failure"
+                ]
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "kind"
+            ]
+          },
+          "maxItems": 200
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "artifact_readable": { "$ref": "#/definitions/preflightCheck" },
+            "artifact_not_truncated": { "$ref": "#/definitions/preflightCheck" },
+            "required_materials_available": { "$ref": "#/definitions/preflightCheck" },
+            "response_matches_task": { "$ref": "#/definitions/preflightCheck" },
+            "task_brief_semantically_complete": { "$ref": "#/definitions/preflightCheck" },
+            "criteria_and_restrictions_disclosed": { "$ref": "#/definitions/preflightCheck" }
+          }
+        },
+        "confidence_limit": {
+          "type": "string",
+          "enum": [
+            "baja",
+            "media",
+            "alta"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "warnings",
+        "blockers",
+        "checks",
+        "confidence_limit"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "LISTO"
+              }
+            },
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "warnings": {
+                "maxItems": 0,
+                "type": "array"
+              },
+              "blockers": {
+                "maxItems": 0,
+                "type": "array"
+              },
+              "confidence_limit": {
+                "const": "alta"
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "LISTO_CON_ADVERTENCIAS"
+              }
+            },
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "warnings": {
+                "minItems": 1,
+                "type": "array"
+              },
+              "blockers": {
+                "maxItems": 0,
+                "type": "array"
+              },
+              "confidence_limit": {
+                "enum": [
+                  "media",
+                  "baja"
+                ]
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "NO_EVALUABLE"
+              }
+            },
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "blockers": {
+                "minItems": 1,
+                "type": "array"
+              },
+              "confidence_limit": {
+                "const": "baja"
+              }
+            },
+            "type": "object"
+          }
+        }
+      ]
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "NO_EVALUABLE",
+            "REHACER",
+            "EN_DESARROLLO",
+            "COMPETENTE",
+            "DESTACADO"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result_confidence": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "baja",
+            "media",
+            "alta"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "executive_summary": {
+      "type": "string",
+      "maxLength": 4000,
+      "pattern": "^\\s*\\S+(?:\\s+\\S+){0,119}\\s*$"
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "criterion_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "findings": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "maxItems": 200,
+            "uniqueItems": true
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10000,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "criterion_id",
+          "score",
+          "required",
+          "findings",
+          "reason"
+        ]
+      },
+      "maxItems": 200
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "https://aion.school.local/schemas/v1/finding.schema.json"
+      },
+      "maxItems": 200
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "claim": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10000,
+            "pattern": "\\S"
+          },
+          "evidence_locator": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10000,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "claim",
+          "evidence_locator"
+        ]
+      },
+      "maxItems": 200
+    },
+    "priority_corrections": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10000,
+        "pattern": "\\S"
+      },
+      "maxItems": 200
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10000,
+        "pattern": "\\S"
+      },
+      "maxItems": 200
+    },
+    "alternative_interpretations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 10000,
+        "pattern": "\\S"
+      },
+      "maxItems": 200
+    },
+    "mastery_updates": {
+      "type": "array",
+      "items": {
+        "$ref": "https://aion.school.local/schemas/v1/competency-update.schema.json"
+      },
+      "maxItems": 200
+    },
+    "repair_task": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "objective": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000,
+              "pattern": "\\S"
+            },
+            "instruction": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000,
+              "pattern": "\\S"
+            },
+            "success_condition": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "required",
+            "objective",
+            "instruction",
+            "success_condition"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "appeal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "rubric_frozen_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "available",
+        "rubric_frozen_at"
+      ],
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "available": { "const": false } }, "required": ["available"] },
+          "then": { "type": "object", "properties": { "rubric_frozen_at": { "type": "null" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "available": { "const": true } }, "required": ["available"] },
+          "then": { "type": "object", "properties": { "rubric_frozen_at": { "type": "string", "minLength": 1, "pattern": "\\S" } } }
+        }
+      ]
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "evaluator_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000,
+          "pattern": "\\S"
+        },
+        "prompt_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rubric_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "evaluator_version",
+        "prompt_version",
+        "rubric_version",
+        "timestamp",
+        "model"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "evaluation_id",
+    "status",
+    "preflight",
+    "result",
+    "result_confidence",
+    "executive_summary",
+    "criteria",
+    "findings",
+    "strengths",
+    "priority_corrections",
+    "uncertainties",
+    "alternative_interpretations",
+    "mastery_updates",
+    "repair_task",
+    "appeal",
+    "audit"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "preflight_only"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "result": {
+            "enum": [
+              null,
+              "NO_EVALUABLE"
+            ]
+          },
+          "result_confidence": {
+            "type": "null"
+          },
+          "criteria": {
+            "maxItems": 0,
+            "type": "array"
+          },
+          "findings": {
+            "maxItems": 0,
+            "type": "array"
+          },
+          "strengths": {
+            "maxItems": 0,
+            "type": "array"
+          },
+          "mastery_updates": {
+            "maxItems": 0,
+            "type": "array"
+          },
+          "priority_corrections": {
+            "maxItems": 0,
+            "type": "array"
+          },
+          "repair_task": {
+            "type": "null"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "result": {
+            "type": "string"
+          },
+          "result_confidence": {
+            "type": "string",
+            "enum": [
+              "baja",
+              "media",
+              "alta"
+            ]
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "preflight": {
+            "properties": {
+              "status": {
+                "const": "NO_EVALUABLE"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "result": {
+            "const": "NO_EVALUABLE"
+          },
+          "criteria": {
+            "maxItems": 0,
+            "type": "array"
+          },
+          "mastery_updates": {
+            "maxItems": 0,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "preflight_only"
+          },
+          "preflight": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "LISTO",
+                  "LISTO_CON_ADVERTENCIAS"
+                ]
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "result": {
+            "type": "null"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": { "result": { "const": "NO_EVALUABLE" } },
+        "required": ["result"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "preflight": {
+            "type": "object",
+            "properties": { "status": { "const": "NO_EVALUABLE" } },
+            "required": ["status"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "status": { "const": "completed" },
+          "result": { "const": "COMPETENTE" }
+        },
+        "required": ["status", "result"]
+      },
+      "then": {
+        "type": "object",
+        "properties": { "criteria": { "type": "array", "minItems": 1 } },
+        "anyOf": [
+          { "type": "object", "properties": { "findings": { "type": "array", "minItems": 1 } } },
+          { "type": "object", "properties": { "strengths": { "type": "array", "minItems": 1 } } }
+        ]
+      }
+    }
+  ]
+}

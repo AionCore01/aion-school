@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "evaluation_id": "EV-2026-09-0001",
+  "evaluator_version": "0.1",
+  "mode": "formativo",
+  "course_id": "fixture-course",
+  "lesson_id": "fixture-lesson",
+  "task_id": "fixture-task",
+  "locale": "es-AR",
+  "task_brief": "En el texto simulado, distinguí el dato observado de la inferencia. Citá el párrafo.",
+  "allowed_materials": [
+    "Texto simulado incluido en la consigna: el registro informa tres entregas."
+  ],
+  "prohibited_assistance": [],
+  "expected_evidence": [
+    "Dato e inferencia identificados y localizados."
+  ],
+  "competency_ids": [
+    "COMP-FI"
+  ],
+  "criterion_ids": [
+    "FI",
+    "EV"
+  ],
+  "rubric_id": "common-rubric",
+  "rubric_version": "1.0.0",
+  "source_pack_id": null,
+  "time_limit_minutes": null,
+  "submission": {
+    "content": "Párrafo 1. El registro informa tres entregas (dato). Que la demanda aumentó es una inferencia no demostrada por ese dato.",
+    "submitted_at": "2026-09-15T18:00:00Z",
+    "declared_assistance": []
+  },
+  "execution_metadata": {
+    "active_minutes": null,
+    "attempts": 1,
+    "interruptions": null
+  },
+  "preflight_checks": {
+    "artifact_readable": {
+      "state": "PASS",
+      "asserted_by": "SYSTEM",
+      "assertion_ref": "fixture-artifact-inspector",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "artifact_not_truncated": {
+      "state": "PASS",
+      "asserted_by": "SYSTEM",
+      "assertion_ref": "fixture-artifact-inspector",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "required_materials_available": {
+      "state": "PASS",
+      "asserted_by": "AUTHORIZED_COMPONENT",
+      "assertion_ref": "fixture-package-builder",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "response_matches_task": {
+      "state": "PASS",
+      "asserted_by": "HUMAN_REVIEW",
+      "assertion_ref": "fixture-review-001",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "task_brief_semantically_complete": {
+      "state": "PASS",
+      "asserted_by": "HUMAN_REVIEW",
+      "assertion_ref": "fixture-review-001",
+      "checked_at": "2026-09-15T17:55:00Z"
+    },
+    "criteria_and_restrictions_disclosed": {
+      "state": "PASS",
+      "asserted_by": "AUTHORIZED_COMPONENT",
+      "assertion_ref": "fixture-package-builder",
+      "checked_at": "2026-09-15T17:55:00Z"
+    }
+  }
+}

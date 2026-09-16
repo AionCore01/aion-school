@@ -1,0 +1,14 @@
+{
+  "name": "aion-school", "version": "0.1.0", "private": true, "type": "module",
+  "description": "Fundamento local de una escuela personal, independiente y no oficial",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test dist/tests/*.test.js",
+    "validate:fixtures": "npm run build && node dist/tests/validate-fixtures.js",
+    "preflight": "npm run build && node dist/src/preflight/cli.js"
+  },
+  "dependencies": { "ajv": "8.17.1", "ajv-formats": "3.0.1", "yaml": "2.8.1" },
+  "devDependencies": { "@types/node": "24.0.0", "typescript": "5.9.3" }
+}
