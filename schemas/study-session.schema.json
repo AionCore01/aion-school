@@ -1,0 +1,651 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aion.school.local/schemas/v1/study-session.schema.json",
+  "title": "AION study-session v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "\\S"
+    },
+    "area": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "\\S"
+    },
+    "activity_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "\\S"
+    },
+    "tutor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "\\S"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "active_minutes": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Suma de segments[].minutes. Igualdad validada en TypeScript; las copias históricas y deltas no se suman otra vez."
+    },
+    "mode": {
+      "enum": [
+        "MANUAL",
+        "CHAT_ESTIMADO",
+        "DECLARADO",
+        "MIXTO"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "ALTA",
+        "MEDIA",
+        "BAJA"
+      ]
+    },
+    "pauses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ended_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "event_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "started_at",
+          "ended_at",
+          "event_ids"
+        ]
+      }
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200,
+        "pattern": "\\S"
+      },
+      "uniqueItems": true
+    },
+    "competency_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+      },
+      "uniqueItems": true
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/effectiveSegment"
+      },
+      "description": "Contribuciones efectivas vigentes y no duplicadas. active_minutes es su suma; los segmentos reemplazados sólo se conservan en el historial de correcciones."
+    },
+    "corrections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "target": {
+            "const": "active_minutes"
+          },
+          "previous_minutes": {
+            "type": "number",
+            "minimum": 0
+          },
+          "new_minutes": {
+            "type": "number",
+            "minimum": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240,
+            "pattern": "\\S"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "provenance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "origin": {
+                "enum": [
+                  "HUMAN",
+                  "CHAT"
+                ]
+              },
+              "source_ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "event_id",
+              "origin",
+              "source_ref"
+            ]
+          },
+          "delta_minutes": {
+            "type": "number",
+            "description": "Diferencia firmada new_minutes - previous_minutes; metadato histórico, no contribución adicional al total."
+          },
+          "replaced_segments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/effectiveSegment"
+            },
+            "description": "Instantánea de los segmentos efectivos sustituidos. Su suma es previous_minutes. No contribuyen al total vigente."
+          }
+        },
+        "required": [
+          "event_id",
+          "target",
+          "previous_minutes",
+          "new_minutes",
+          "reason",
+          "timestamp",
+          "provenance",
+          "delta_minutes",
+          "replaced_segments"
+        ]
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "threshold_minutes": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "event_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "from",
+          "to",
+          "threshold_minutes",
+          "event_ids"
+        ]
+      }
+    },
+    "event_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "visibility": {
+      "enum": [
+        "BLIND",
+        "TIMED_TASK"
+      ]
+    },
+    "timed_task": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "task_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "task_brief_ref": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "\\S"
+            },
+            "time_declared": {
+              "const": true
+            },
+            "authorized_fields": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "active_minutes",
+                  "started_at",
+                  "ended_at",
+                  "pauses",
+                  "mode",
+                  "confidence"
+                ]
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "task_id",
+            "task_brief_ref",
+            "time_declared",
+            "authorized_fields"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "OPEN",
+        "PROVISIONAL",
+        "CLOSED"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "session_id",
+    "date",
+    "timezone",
+    "area",
+    "activity_type",
+    "tutor",
+    "started_at",
+    "ended_at",
+    "active_minutes",
+    "mode",
+    "confidence",
+    "pauses",
+    "artifact_refs",
+    "competency_ids",
+    "segments",
+    "corrections",
+    "gaps",
+    "event_ids",
+    "visibility",
+    "timed_task",
+    "status"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "visibility": {
+            "const": "BLIND"
+          }
+        },
+        "required": [
+          "visibility"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "timed_task": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "type": "object",
+        "properties": {
+          "timed_task": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "task_brief_ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "\\S"
+              },
+              "time_declared": {
+                "const": true
+              },
+              "authorized_fields": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "active_minutes",
+                    "started_at",
+                    "ended_at",
+                    "pauses",
+                    "mode",
+                    "confidence"
+                  ]
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "task_id",
+              "task_brief_ref",
+              "time_declared",
+              "authorized_fields"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "const": "OPEN"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "ended_at": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "type": "object",
+        "properties": {
+          "ended_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "effectiveSegment": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "segment_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "started_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "ended_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "minutes": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Contribución efectiva al total, en minutos. Sólo se suma desde la lista raíz segments; una copia en corrections.replaced_segments es histórica y no contribuye."
+            },
+            "mode": {
+              "enum": [
+                "MANUAL",
+                "CHAT_ESTIMADO",
+                "DECLARADO"
+              ]
+            },
+            "provenance": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "event_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                  },
+                  "origin": {
+                    "enum": [
+                      "HUMAN",
+                      "CHAT"
+                    ]
+                  },
+                  "source_ref": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "pattern": "\\S"
+                  }
+                },
+                "required": [
+                  "event_id",
+                  "origin",
+                  "source_ref"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 2
+            },
+            "kind": {
+              "const": "INTERVAL"
+            }
+          },
+          "required": [
+            "segment_id",
+            "started_at",
+            "ended_at",
+            "minutes",
+            "mode",
+            "provenance",
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "segment_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "kind": {
+              "const": "ADJUSTMENT"
+            },
+            "minutes": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Total efectivo declarado que sustituye los segmentos de corrections.replaced_segments. Contribuye una sola vez desde segments. No representa un nuevo intervalo de reloj."
+            },
+            "mode": {
+              "const": "DECLARADO"
+            },
+            "correction_event_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "provenance": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "event_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                  },
+                  "origin": {
+                    "enum": [
+                      "HUMAN",
+                      "CHAT"
+                    ]
+                  },
+                  "source_ref": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "pattern": "\\S"
+                  }
+                },
+                "required": [
+                  "event_id",
+                  "origin",
+                  "source_ref"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 1
+            }
+          },
+          "required": [
+            "segment_id",
+            "kind",
+            "minutes",
+            "mode",
+            "correction_event_id",
+            "provenance"
+          ]
+        }
+      ]
+    },
+    "blindExport": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "visibility": {
+          "const": "BLIND"
+        },
+        "temporal_data_withheld": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": [
+        "visibility",
+        "temporal_data_withheld"
+      ]
+    }
+  }
+}

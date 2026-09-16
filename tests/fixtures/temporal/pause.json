@@ -1,0 +1,58 @@
+{
+  "events": [
+    {
+      "schema_version": "1.0.0",
+      "event_id": "E-1",
+      "session_id": "S-001",
+      "timestamp": "2026-09-16T10:00:00-03:00",
+      "type": "SESSION_STARTED",
+      "origin": "HUMAN",
+      "provenance": {
+        "source_ref": "registro-local:1"
+      },
+      "data": {
+        "activation": "Pez en el agua",
+        "timezone": "America/Argentina/Buenos_Aires",
+        "area": "Análisis",
+        "activity_type": "Práctica local",
+        "mode": "CHAT_ESTIMADO"
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "event_id": "E-2",
+      "session_id": "S-001",
+      "timestamp": "2026-09-16T10:10:00-03:00",
+      "type": "PAUSE_DECLARED",
+      "origin": "HUMAN",
+      "provenance": {
+        "source_ref": "registro-local:2"
+      },
+      "data": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "event_id": "E-3",
+      "session_id": "S-001",
+      "timestamp": "2026-09-16T11:20:00-03:00",
+      "type": "SESSION_RESUMED",
+      "origin": "HUMAN",
+      "provenance": {
+        "source_ref": "registro-local:3"
+      },
+      "data": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "event_id": "E-4",
+      "session_id": "S-001",
+      "timestamp": "2026-09-16T11:35:00-03:00",
+      "type": "SESSION_CLOSED",
+      "origin": "HUMAN",
+      "provenance": {
+        "source_ref": "registro-local:4"
+      },
+      "data": {}
+    }
+  ]
+}

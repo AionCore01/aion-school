@@ -1,0 +1,102 @@
+[
+  {
+    "file": "manual.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 30,
+      "mode": "MANUAL",
+      "confidence": "ALTA",
+      "status": "CLOSED"
+    }
+  },
+  {
+    "file": "continuous.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 40,
+      "mode": "CHAT_ESTIMADO",
+      "confidence": "MEDIA",
+      "status": "CLOSED"
+    }
+  },
+  {
+    "file": "gap.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 15,
+      "status": "PROVISIONAL",
+      "confidence": "BAJA",
+      "ended_at": "2026-09-16T13:15:00.000Z"
+    }
+  },
+  {
+    "file": "pause.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 25,
+      "status": "CLOSED",
+      "confidence": "MEDIA"
+    }
+  },
+  {
+    "file": "offline.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 30,
+      "mode": "DECLARADO",
+      "confidence": "BAJA",
+      "status": "CLOSED"
+    }
+  },
+  {
+    "file": "correction.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 22,
+      "mode": "MIXTO",
+      "confidence": "BAJA",
+      "status": "CLOSED"
+    }
+  },
+  {
+    "file": "single-event.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 0,
+      "segments": [],
+      "status": "OPEN",
+      "confidence": "BAJA",
+      "ended_at": null
+    }
+  },
+  {
+    "file": "unordered.json",
+    "valid": false
+  },
+  {
+    "file": "blind.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 30,
+      "visibility": "BLIND",
+      "timed_task": null
+    }
+  },
+  {
+    "file": "timed-task.json",
+    "valid": true,
+    "expected": {
+      "active_minutes": 30,
+      "visibility": "TIMED_TASK",
+      "status": "CLOSED"
+    }
+  },
+  {
+    "file": "negative-duration.json",
+    "valid": false
+  },
+  {
+    "file": "unauthorized-content.json",
+    "valid": false
+  }
+]

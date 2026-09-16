@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "schema_version": "1.0.0",
+      "event_id": "E-1",
+      "session_id": "S-001",
+      "timestamp": "2026-09-16T10:00:00-03:00",
+      "type": "SESSION_STARTED",
+      "origin": "HUMAN",
+      "provenance": {
+        "source_ref": "registro-local:1"
+      },
+      "data": {
+        "activation": "Pez en el agua",
+        "timezone": "America/Argentina/Buenos_Aires",
+        "area": "Análisis",
+        "activity_type": "Práctica local",
+        "mode": "DECLARADO"
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "event_id": "E-2",
+      "session_id": "S-001",
+      "timestamp": "2026-09-16T10:35:00-03:00",
+      "type": "OFFLINE_TIME_DECLARED",
+      "origin": "HUMAN",
+      "provenance": {
+        "source_ref": "registro-local:2"
+      },
+      "data": {
+        "started_at": "2026-09-16T10:30:00-03:00",
+        "ended_at": "2026-09-16T10:20:00-03:00"
+      }
+    }
+  ]
+}

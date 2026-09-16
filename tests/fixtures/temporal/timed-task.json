@@ -1,0 +1,42 @@
+{
+  "events": [
+    {
+      "schema_version": "1.0.0",
+      "event_id": "E-1",
+      "session_id": "S-001",
+      "timestamp": "2026-09-16T10:00:00-03:00",
+      "type": "SESSION_STARTED",
+      "origin": "HUMAN",
+      "provenance": {
+        "source_ref": "registro-local:1"
+      },
+      "data": {
+        "activation": "Pez en el agua",
+        "timezone": "America/Argentina/Buenos_Aires",
+        "area": "Análisis",
+        "activity_type": "Práctica local",
+        "mode": "MANUAL",
+        "timed_task": {
+          "task_id": "TASK-001",
+          "task_brief_ref": "consigna:cronometrada-v1",
+          "time_declared": true,
+          "authorized_fields": [
+            "active_minutes"
+          ]
+        }
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "event_id": "E-2",
+      "session_id": "S-001",
+      "timestamp": "2026-09-16T10:30:00-03:00",
+      "type": "SESSION_CLOSED",
+      "origin": "HUMAN",
+      "provenance": {
+        "source_ref": "registro-local:2"
+      },
+      "data": {}
+    }
+  ]
+}

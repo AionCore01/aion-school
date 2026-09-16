@@ -1,6 +1,6 @@
-# AION School · fundamento v0.1
+# AION School · fundamento y observación temporal
 
-Escuela personal, independiente y no oficial. Este proyecto implementa contratos y un preflight local determinista; todavía no evalúa desempeño.
+Escuela personal, independiente y no oficial. Este proyecto implementa contratos, un preflight y un observador temporal local determinista. Todavía no evalúa desempeño. El tiempo es evidencia contextual y no produce calificaciones.
 
 ## Ejecutar en Windows / PowerShell
 
@@ -14,6 +14,8 @@ npm run validate:fixtures
 npm run preflight -- tests/fixtures/valid-request.json
 npm run preflight -- tests/fixtures/missing-submission-request.json
 npm run preflight -- tests/fixtures/warning-request.json --json
+npm run summarize:session -- tests/fixtures/temporal/manual.json
+npm run summarize:session -- tests/fixtures/temporal/blind.json --for-evaluator
 ```
 
 La instalación inicial necesita acceso al registro npm. La ejecución posterior usa sólo archivos locales; no solicita credenciales ni conecta modelos. No instalar herramientas globales.
@@ -38,11 +40,13 @@ En particular, código 0 **no implica** que el paquete sea evaluable. Consumir `
 ## Qué contiene
 
 - `docs/foundation/`: fuentes normativas intactas y misión fundacional.
-- `schemas/`: cinco contratos JSON Schema Draft 7, versión 1.0.0.
+- `schemas/`: siete contratos JSON Schema Draft 7, versión 1.0.0: cinco fundacionales y dos temporales.
 - `rubrics/common-rubric.v1.yml`: doce dimensiones y sesenta descriptores observables.
 - `src/contracts/`: carga y validación AJV sin coerción ni eliminación de propiedades.
 - `src/preflight/`: comprobaciones deterministas y CLI.
+- `src/temporal/`: reconstrucción de sesiones, proyección para evaluadora y CLI.
 - `tests/fixtures/`: ejemplos sintéticos positivos y negativos, con manifiesto de expectativas.
+- `tests/fixtures/temporal/`: doce paquetes temporales con expectativas verificables.
 - `tests/acceptance/`: diez casos semánticos documentados, pendientes de implementación.
 - `STATUS.md`, `NEXT.md`, `docs/architecture/ADR-0001-foundation.md`: continuidad y decisiones.
 
@@ -64,4 +68,22 @@ La salida real conserva los controles y su procedencia, tiene `status: preflight
 
 Además del JSON Schema, la validación cruzada TypeScript rechaza resultados incompatibles entre preflight, resultado y confianza; `COMPETENTE` sin criterios o evidencia localizada; cualquier resultado distinto de `REHACER` cuando existe un hallazgo crítico; IDs repetidos en `evaluation-result.criteria`; resúmenes vacíos en `completed`; apelación ficticia; y criterios duplicados en rúbricas. Son comprobaciones deterministas de coherencia, no evaluación semántica.
 
-No hay campus, usuarios, cronómetro, currículo, tutores, evaluadora IA, registro persistente de evaluaciones, base de datos ni publicación.
+## Observación temporal · Pez en el agua
+
+El evento explícito `SESSION_STARTED` con activación `Pez en el agua` fija T0. La CLI recibe un archivo `{ "events": [...] }`; no captura el chat ni observa ventanas o teclas. El motor conserva segmentos, pausas, procedencia, brechas y correcciones. Un inicio aislado produce cero minutos. El umbral de continuidad predeterminado es 45 minutos, configurable con `options.gap_threshold_minutes`; una brecha mayor se excluye por completo y deja un corte provisional hasta reanudación o cierre explícitos.
+
+El modo distingue `MANUAL`, `CHAT_ESTIMADO`, `DECLARADO` y `MIXTO`. El tiempo offline y las correcciones permanecen declarados; no se transforman en tiempo medido. La confianza temporal sólo describe la evidencia temporal. No se infieren foco, entusiasmo, afinidad ni rendimiento.
+
+El total siempre coincide con la suma de `segments[].minutes`. Una corrección sólo se admite sin ancla activa: el productor debe pausar o cerrar antes, corregir las contribuciones materializadas y reanudar explícitamente si continúa. Una corrección sustituye las contribuciones vigentes por un ajuste declarado; conserva las contribuciones anteriores en `corrections[].replaced_segments`, junto con valor previo, nuevo, delta, motivo, momento y procedencia. Es global sobre `active_minutes`, no selectiva por segmento: mencionarlo en el motivo no lo vuelve verificable. Esas copias históricas no se suman otra vez, pero sus intervalos siguen impidiendo el doble conteo por superposición. Los eventos originales no se modifican.
+
+```powershell
+npm run summarize:session -- tests/fixtures/temporal/pause.json
+npm run summarize:session -- tests/fixtures/temporal/correction.json --json
+npm run summarize:session -- tests/fixtures/temporal/timed-task.json --for-evaluator
+```
+
+Sin flags: salida compacta para observación local. `--json`: resumen completo local. **Para la evaluadora, usar siempre `--for-evaluator`**: cada exportación `BLIND` es exactamente `{ "visibility": "BLIND", "temporal_data_withheld": true }`, sin identificadores ni strings del productor y con rechazo de propiedades adicionales. La asociación sesión/evaluación queda fuera del payload, en la capa llamadora o ledger futuro. `TIMED_TASK` conserva su lista de campos autorizados por la declaración de consigna del evento inicial y su límite aceptado de autorización estructural no autenticada. El resumen local completo sí contiene tiempo aun cuando la visibilidad sea `BLIND`. La exportación no consulta la consigna ni se conecta a una evaluadora; valida la declaración recibida. Código 0: reconstrucción válida, incluso abierta/provisional; código 1: entrada o uso inválidos, sin salida parcial.
+
+Ver [protocolo operativo](docs/protocols/pez-en-el-agua.md) y [decisiones y límites temporales](docs/architecture/ADR-0002-temporal-observation.md). Drive/Sheets, auditoría mensual e interfaz quedan pendientes. La calibración manual de `NEXT.md` podrá asociarse a una sesión, sin iniciarse en este incremento.
+
+No hay campus, usuarios, cronómetro automático, currículo, tutores, evaluadora IA, captura automática, registro persistente de evaluaciones, base de datos ni publicación. La CLI lee archivos locales y no los modifica.

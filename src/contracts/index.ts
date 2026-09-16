@@ -2,9 +2,10 @@ import { readFileSync } from 'node:fs';
 import { Ajv, type ErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
 import { parse } from 'yaml';
+import type { StudySession, Segment } from '../temporal/types.js';
 
 export const root = new URL('../../../', import.meta.url);
-export const contractNames = ['finding', 'rubric', 'competency-update', 'evaluation-request', 'evaluation-result'] as const;
+export const contractNames = ['finding', 'rubric', 'competency-update', 'evaluation-request', 'evaluation-result', 'study-event', 'study-session'] as const;
 export type ContractName = typeof contractNames[number];
 export const requiredPreflightChecks = [
   'artifact_readable',
@@ -98,6 +99,45 @@ function evaluationResultIssues(value: any): ErrorObject[] {
   }
   return issues;
 }
+function studySessionIssues(value: StudySession): ErrorObject[] {
+  const issues: ErrorObject[] = [];
+  const sum = (segments: Segment[]) => segments.reduce((total, s) => total + s.minutes, 0);
+  const fail = (path: string, message: string) => issues.push(issue(path, 'effectiveTemporalContributions', message));
+  if (value.active_minutes !== sum(value.segments)) fail('/active_minutes', 'debe coincidir con la suma de segments[].minutes');
+  const all = [...value.corrections.flatMap(c => c.replaced_segments), ...value.segments];
+  if (new Set(all.map(s => s.segment_id)).size !== all.length) fail('/segments', 'segment_id duplicado entre estado efectivo e historial');
+  if (new Set(value.corrections.map(c => c.event_id)).size !== value.corrections.length) fail('/corrections', 'corrección duplicada');
+  const positions = new Map(value.event_ids.map((id, index) => [id, index]));
+  const effective: Segment[] = [];
+  // Replay only accepted contributions and replacements, using the retained event order.
+  for (const eventId of value.event_ids) {
+    for (const segment of all.filter(s => s.kind === 'INTERVAL' && s.provenance.at(-1)?.event_id === eventId)) effective.push(segment);
+    for (const correction of value.corrections.filter(c => c.event_id === eventId)) {
+      if (correction.delta_minutes !== correction.new_minutes - correction.previous_minutes) fail('/corrections', 'delta incoherente');
+      if (sum(correction.replaced_segments) !== correction.previous_minutes || sum(effective) !== correction.previous_minutes) fail('/corrections', 'valor previo incoherente con las contribuciones sustituidas');
+      if (JSON.stringify(effective.map(s => s.segment_id)) !== JSON.stringify(correction.replaced_segments.map(s => s.segment_id))) fail('/corrections', 'la corrección debe sustituir exactamente el estado efectivo anterior');
+      const replacements = all.filter(s => s.kind === 'ADJUSTMENT' && s.correction_event_id === correction.event_id);
+      const source = replacements[0]?.provenance[0];
+      if (replacements.length !== 1 || replacements[0].minutes !== correction.new_minutes || !source || (['event_id', 'origin', 'source_ref'] as const).some(key => source[key] !== correction.provenance[key])) fail('/corrections', 'ajuste ausente, duplicado o incoherente con su corrección');
+      effective.splice(0, effective.length, ...replacements);
+    }
+  }
+  if (JSON.stringify(effective.map(s => s.segment_id)) !== JSON.stringify(value.segments.map(s => s.segment_id))) fail('/segments', 'los segmentos vigentes no corresponden al historial de reemplazos');
+  for (const correction of value.corrections) {
+    if (!positions.has(correction.event_id) || correction.provenance.event_id !== correction.event_id) fail('/corrections', 'procedencia de corrección no vinculada a un evento');
+  }
+  const intervals = all.filter(s => s.kind === 'INTERVAL');
+  for (let i = 0; i < intervals.length; i++) {
+    const a = intervals[i];
+    if (Date.parse(a.ended_at) < Date.parse(a.started_at)) fail('/segments', 'intervalo negativo');
+    if (intervals.slice(i + 1).some(b => Date.parse(a.started_at) < Date.parse(b.ended_at) && Date.parse(a.ended_at) > Date.parse(b.started_at))) fail('/segments', 'intervalos superpuestos, incluidos los sustituidos');
+  }
+  return issues;
+}
+export function validateBlindExport(value: unknown): void {
+  const validator = ajv.getSchema('https://aion.school.local/schemas/v1/study-session.schema.json#/definitions/blindExport')!;
+  if (!validator(value)) throw new ContractError('study-session', structuredClone(validator.errors ?? []));
+}
 export function validate(contract: ContractName, value: unknown): void {
   const validator = ajv.getSchema(contract)!;
   if (!validator(value)) throw new ContractError(contract, structuredClone(validator.errors ?? []));
@@ -108,6 +148,7 @@ export function validate(contract: ContractName, value: unknown): void {
     if (rubric) issues = duplicateCriterionIssues(rubric, '/rubric/dimensions');
   }
   if (contract === 'evaluation-result') issues = evaluationResultIssues(value);
+  if (contract === 'study-session') issues = studySessionIssues(value as StudySession);
   if (issues.length) throw new ContractError(contract, issues);
 }
 export interface Rubric {
