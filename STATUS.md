@@ -4,6 +4,14 @@ Actualizado: 2026-09-16. Proyecto local: `C:\Users\nucle\aion-school`.
 
 ## Kosmotaxis K0 · documental
 
+### Propuesta manual K0.1
+
+Disponibles para revisión conceptual el [protocolo prospectivo manual](docs/kosmotaxis/K0.1-PROSPECTIVE-MANUAL-PROTOCOL.md) y el [ADR-0004](docs/architecture/ADR-0004-kosmotaxis-prospective-manual-evidence.md). Son propuestas documentales de granularidad, momentos separados, independencia por dimensiones, anterioridad, minimización y refutación. Las compuertas G1–G9 siguen pendientes de cierre suficiente; G5 sólo dispone de evidencia parcial de orden documental Git. K1 no autorizado ni iniciado.
+
+HECHO VERIFICADO por Git en esta intervención: rama `experiment/kosmotaxis` y HEAD `7f43e96b18dcb87b8c8b57a7e9036e81b92b1a8e`. DECLARACIÓN DISPONIBLE: se declaró que el árbol estaba inicialmente limpio; esa limpieza histórica no es reproducible desde las fuentes conservadas. El prerregistro de CASE-P01 contiene la recomendación ORCHESTRATOR / Astra / Medium; no acredita selección real ni ejecución. Su resultado y auditoría quedan para otra intervención. No se ejecuta la suite en esta misión exclusivamente documental; los resultados técnicos que siguen son históricos.
+
+### Antecedente K0 preservado
+
 [Carta K0](docs/kosmotaxis/K0-CHARTER.md), vocabulario EXPERIMENTAL K0.1, caso rotulado RECONSTRUCCIÓN RETROSPECTIVA y ADR-0003 disponibles para revisión conceptual. Sin implementación ni integración. K1 futuro, no iniciado. **DECLARACIÓN DISPONIBLE:** durante el traspaso operativo se declaró contemporáneamente que K0 comenzó en `experiment/kosmotaxis` con el árbol limpio; esa limpieza histórica no es reproducible usando sólo las fuentes conservadas en el repositorio y no se clasifica como HECHO VERIFICADO. Git sí respalda la rama, el HEAD `aab4da4` y la relación entre commits cuando se inspeccionan en el expediente actual. Los estados Git y resultados técnicos siguientes son registros históricos, no verificaciones repetidas en K0.
 
 **Resultado:** fundamento determinista y observación temporal implementados y probados. No existe todavía una evaluadora de desempeño ni un campus. AION es una escuela personal, independiente y no oficial.

@@ -41,6 +41,8 @@ En particular, código 0 **no implica** que el paquete sea evaluable. Consumir `
 
 Kosmotaxis comienza en modo sombra exclusivamente documental: [Carta experimental K0](docs/kosmotaxis/K0-CHARTER.md), vocabulario provisional y reconstrucción retrospectiva temporal. No selecciona modelos ni integra Pez en el agua o la evaluadora. K1 es futuro, no iniciado; ver [ADR-0003](docs/architecture/ADR-0003-kosmotaxis-shadow-mode.md).
 
+La propuesta de [protocolo prospectivo manual K0.1](docs/kosmotaxis/K0.1-PROSPECTIVE-MANUAL-PROTOCOL.md) y el [ADR-0004](docs/architecture/ADR-0004-kosmotaxis-prospective-manual-evidence.md) delimitan reglas y compuertas para revisión conceptual. No validan la política ni autorizan K1. CASE-P01 conserva su prerregistro; su resultado corresponde a una intervención posterior.
+
 - `docs/foundation/`: fuentes normativas intactas y misión fundacional.
 - `schemas/`: siete contratos JSON Schema Draft 7, versión 1.0.0: cinco fundacionales y dos temporales.
 - `rubrics/common-rubric.v1.yml`: doce dimensiones y sesenta descriptores observables.

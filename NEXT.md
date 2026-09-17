@@ -1,6 +1,6 @@
 # Próximo incremento propuesto · no iniciado
 
-Kosmotaxis: revisar la [Carta K0](docs/kosmotaxis/K0-CHARTER.md) y sus hipótesis. **K1 es futuro, no iniciado**; requiere nueva autorización y recomendación preservada antes de seleccionar y ejecutar un bloque de software con procedencia independiente. No se inicia calibración, automatización ni integración. La propuesta evaluativa siguiente se conserva como pendiente independiente; no es calibración Kosmotaxis.
+Kosmotaxis: próximo paso acotado propuesto, revisar conceptualmente el [protocolo manual K0.1](docs/kosmotaxis/K0.1-PROSPECTIVE-MANUAL-PROTOCOL.md) y el [ADR-0004](docs/architecture/ADR-0004-kosmotaxis-prospective-manual-evidence.md) frente a la [Carta K0](docs/kosmotaxis/K0-CHARTER.md). Otra intervención deberá registrar el resultado de CASE-P01 vinculado a su prerregistro inmutable, con límites de circularidad y separación por dimensiones. **K1 sigue pendiente, no autorizado ni iniciado**: requiere cierre justificado de G1–G9, incluida evidencia independiente de recomendación previa a selección y ejecución, y nueva autorización específica. No se inicia calibración, automatización ni integración. La propuesta evaluativa siguiente se conserva como pendiente independiente, fuera de este paso; no es calibración Kosmotaxis.
 
 Preparar **un solo caso de calibración local revisable**: respuesta persuasiva sin evidencia (caso semántico 2).
 
