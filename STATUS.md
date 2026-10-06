@@ -4,6 +4,14 @@ Actualizado: 2026-10-06. Proyecto local: `C:\Users\nucle\aion-school`.
 
 **Resultado:** fundamento determinista y observación temporal implementados y probados; CASE-P02 implementado, aceptado como caso mínimo de calibración semántica manual y publicado. No existe todavía una evaluadora automática de desempeño ni un campus. AION es una escuela personal, independiente y no oficial.
 
+## Gobierno operativo · Custodio v0.1
+
+- Se documentó `docs/governance/CUSTODIO.md` como protocolo provisional para checkpoint activo, carriles de trabajo, check-in/check-out y control de desvíos.
+- Se documentó `docs/governance/MATERIAL-PROVENANCE.md` con las clases `AION_CREA`, `AION_SELECCIONA`, `AION_RECOMIENDA` y `AION_INVESTIGA`.
+- Se documentó `docs/governance/CUSTODIO-CHATGPT-APP.md` como factibilidad y diseño conceptual de integración futura con plugin/app y MCP. No hay app, servicio, base de datos, credenciales ni automatización implementados.
+- `NEXT.md` queda temporalmente gobernado por CP-00. CASE-P03 permanece aparcado, no cancelado.
+- Regla curricular registrada: la presencia o ausencia de un tema en programas externos es evidencia descriptiva, no determina por sí sola si AION debe tratarlo como troncal, transversal u optativo.
+
 ## CASE-P02: cierre publicado
 
 - Implementación congelada: `d051a92427aa261c5e3d1f99c89893abfff1a968`.

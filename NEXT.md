@@ -1,18 +1,26 @@
-# Próximo objetivo de diseño · Evaluadora
+# Próximo objetivo · Gobierno operativo AION
 
-**Seleccionar el siguiente caso semántico de calibración con mayor poder discriminativo que CASE-P02.**
+**Cerrar CP-00: Custodio y procedencia de materiales antes de continuar currículo, P03 u otra línea.**
 
-CASE-P02 ya fue implementado, aceptado como caso mínimo manual y publicado bajo `v0.3.0-case-p02`; su cierre está en `docs/calibration/CASE-P02-AUDIT-RESULT.md`. El próximo paso es comparar candidatas, sin diseñar todavía P03 completo ni iniciar un experimento.
+La necesidad activa ya no es elegir inmediatamente CASE-P03. El trabajo del 2026-10-06 mostró que AION necesita una capa explícita de continuidad que impida mezclar currículo, contenido, evaluación, código, investigación e infraestructura por aparición de ideas laterales.
 
-El próximo caso debería:
+## Entregables de CP-00
 
-- Evitar una respuesta donde el nivel correcto sea casi tautológico.
-- Introducir una frontera semántica razonable entre dos adjudicaciones posibles.
-- Preservar evaluación ciega antes de revelar el resultado congelado.
-- Mantener separación entre implementación y auditoría.
-- Explorar al menos una zona donde la norma requiera juicio real.
-- Considerar `SEVERITY_POLICY_UNDERSPECIFIED` como hallazgo de diseño, sin asumir todavía que severidad deba ser el foco.
+- Revisar y aceptar/corregir `docs/governance/CUSTODIO.md`.
+- Revisar y aceptar/corregir `docs/governance/MATERIAL-PROVENANCE.md`.
+- Decidir el formato mínimo del backlog y del informe diario.
+- Definir la primera Orden de trabajo diaria custodiada.
+- Sólo después declarar `CP-00 = CONGELADO` y abrir CP-01.
 
-**Decisión PENDIENTE:** comparar varias candidatas antes de elegir el próximo experimento. Esta continuidad no selecciona un caso, no fija su dictamen ni autoriza su ejecución.
+## Aparcado, no cancelado
 
-Tutoría queda posterior a consolidar mejor la Evaluadora y el modelo pedagógico; no se inicia todavía. Drive/Sheets, auditoría mensual e interfaz permanecen pendientes fuera de este objetivo. Sin campus, proveedor externo, credenciales ni ejecución de IA desde el repo. Se requiere una nueva solicitud para iniciar el trabajo de diseño.
+- CASE-P03 y revisión conceptual de IN 0–4.
+- Campus y formación grupal.
+- Capa afectiva.
+- Automatización de Pez en el agua.
+- Plugin/app Custodio en ChatGPT.
+- Diseño curricular sustantivo posterior a CP-00.
+
+La factibilidad técnica preliminar del plugin/app está documentada en `docs/governance/CUSTODIO-CHATGPT-APP.md`, pero **no se implementa en este incremento**.
+
+No crear materias, servicios, persistencia, credenciales ni automatizaciones antes del cierre explícito de CP-00.

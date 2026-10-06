@@ -5,6 +5,8 @@ Escuela personal, independiente y no oficial. No certifica aptitud institucional
 ## Autoridad y continuidad
 
 - Leer completos `docs/foundation/AION_Mision_Fundacional_Astra_v0.1.md`, el Manifiesto y la Especificación de esa carpeta antes de cambiar contratos o evaluación; consultar `STATUS.md`, `NEXT.md` y el ADR.
+- Antes de abrir una línea nueva, leer `docs/governance/CUSTODIO.md` y respetar su checkpoint y carril activo. Las ideas fuera de perímetro van a backlog o requieren replanificación explícita.
+- Para materiales, usar la taxonomía de `docs/governance/MATERIAL-PROVENANCE.md`; no confundir fuentes de investigación con currículo para el alumno.
 - Preservar los documentos normativos y los originales de la raíz sin reescribirlos. Registrar contradicciones como decisiones pendientes; nunca resolverlas silenciosamente.
 - Conservar entradas, evidencias, errores y decisiones anteriores. Una revisión debe quedar vinculada a su original.
 - Inspeccionar el trabajo existente y presentar un plan breve antes de modificarlo. No sobrescribir trabajo previo incompatible. No cambiar la identidad Git ni crear commits o publicar sin autorización explícita.
