@@ -32,3 +32,18 @@ Escuela personal, independiente y no oficial. No certifica aptitud institucional
 - Versionar contratos y rúbricas. No alterar retrospectivamente una evaluación con una nueva rúbrica.
 - Ejecutar `npm test`, `npm run typecheck` y `npm run validate:fixtures` ante cambios pertinentes. Actualizar `STATUS.md` sólo con evidencia real.
 - Mantener `NEXT.md` limitado a un incremento pequeño. Documentar límites semánticos y decisiones pendientes en el ADR.
+
+## Selección operativa de capacidad y modelo
+
+Política vigente para trabajo futuro en Codex, revisable cuando cambie la familia de modelos:
+
+- **Luna:** exploración del repo, búsquedas, inspecciones simples, cambios mecánicos pequeños, ejecución rutinaria de comandos conocidos y documentación trivial.
+- **GPT-6.1 Sol ligero/medio:** opción por defecto para trabajo serio; implementar contratos ya diseñados, reparar código cuyo problema ya está entendido, cambios coordinados entre varias piezas, fixtures, schemas, wiring, diagnóstico técnico ordinario y materialización de diseños ya fijados.
+- **GPT-6.1 Sol High:** muchas restricciones simultáneas, invariantes complejos, auditorías técnicas difíciles, contraejemplos y problemas de alta complejidad cuyo marco conceptual sigue siendo válido.
+- **Astra:** incertidumbre epistemológica, cuestionar la abstracción, arquitectura nueva, contradicciones conceptuales persistentes, auditoría adversarial independiente de alto nivel y decidir si la evidencia distingue realmente hipótesis rivales.
+
+Regla compacta: «Luna explora → 6.1 Sol construye → 6.1 Sol High pelea → Astra juzga».
+
+No escalar a Astra sólo por volumen o dificultad técnica; escalar cuando esté en duda el marco conceptual o interpretativo. El modelo seleccionado en Codex puede persistir entre tareas: verificar el nivel antes de trabajos triviales para evitar consumo innecesario. Multiagente/subagentes sólo cuando exista paralelismo real con valor metodológico; no usar paralelismo por defecto.
+
+Esta política no cambia la autoridad ni las prohibiciones del proyecto y no autoriza automáticamente modelos externos desde el código del repo.

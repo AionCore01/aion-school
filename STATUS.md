@@ -1,8 +1,21 @@
 # Estado comprobado · fundamento y misión Pez en el agua v0.1
 
-Actualizado: 2026-09-16. Proyecto local: `C:\Users\nucle\aion-school`.
+Actualizado: 2026-10-06. Proyecto local: `C:\Users\nucle\aion-school`.
 
-**Resultado:** fundamento determinista y observación temporal implementados y probados. No existe todavía una evaluadora de desempeño ni un campus. AION es una escuela personal, independiente y no oficial.
+**Resultado:** fundamento determinista y observación temporal implementados y probados; CASE-P02 implementado, aceptado como caso mínimo de calibración semántica manual y publicado. No existe todavía una evaluadora automática de desempeño ni un campus. AION es una escuela personal, independiente y no oficial.
+
+## CASE-P02: cierre publicado
+
+- Implementación congelada: `d051a92427aa261c5e3d1f99c89893abfff1a968`.
+- Registro posterior de auditoría y cierre: `ab2060b1798d8595a1710dbe27c27a1be7b75e4d`.
+- Tag anotado: `v0.3.0-case-p02`, sobre el commit de cierre. Publicación verificada directamente en remoto para `dev`, `feature/manual-calibration-case` y el tag; las dos ramas apuntan al cierre.
+- Aceptación técnica registrada: `ACCEPTANCE_PASS`. `P02:request`, `P02:manual-result`, `P02:preflight` y `P02:boundaries`: cada una 1/1 PASS. Suite completa: 133/133 PASS; typecheck PASS; `validate:fixtures`: 7 schemas, rúbrica y 28 fixtures históricos verificados. Estos son resultados ejecutados antes del congelamiento; esta actualización documental no vuelve a ejecutar pruebas.
+- `P02-AUDIT-001`: `AUDIT_PASS_WITH_RESERVATIONS`. `P02-AUDIT-002`: `BLIND_RECONSTRUCTION_CONFIRMED`. Los resultados de auditoría se conservan como declaraciones suministradas en el [registro posterior](docs/calibration/CASE-P02-AUDIT-RESULT.md), con sus límites de independencia.
+- Decisión final: `ACCEPTED_AS_MINIMAL_MANUAL_CALIBRATION_CASE`. Reserva de diseño: `SEVERITY_POLICY_UNDERSPECIFIED`.
+
+La reconstrucción ciega registrada recuperó EV=0 y REHACER con alta estabilidad semántica en este caso. La severidad «mayor» resultó defendible y coincidió, pero la norma actual no la determina de forma única. CASE-P02 demuestra trazabilidad y representación de un dictamen manual mínimo; no demuestra capacidad automática general, validez empírica completa de la evaluadora, superioridad de modelo, validación general de Kosmotaxis ni desempeño de una persona. No habilita K1; las preguntas negativas 8 y 9 siguen `PENDING` y los estados `UNKNOWN` se conservan.
+
+La [referencia manual congelada](docs/calibration/CASE-P02-MANUAL-REFERENCE.md) conserva los estados preparatorios y las auditorías pendientes de su etapa. El registro posterior documenta el cierre sin reescribirla. Los registros fundacionales y temporales siguientes mantienen sus resultados y estados históricos. El próximo objetivo de diseño vigente está en `NEXT.md`: comparar candidatas para un caso semántico con mayor poder discriminativo, sin iniciar todavía el experimento ni Tutoría.
 
 ## Observación temporal implementada (2026-09-16)
 
@@ -43,7 +56,7 @@ Dictamen de la corrección: **LISTO PARA REAUDITORÍA**. La interrupción de con
 - Las correcciones humanas sustituyen los segmentos efectivos y conservan los anteriores en el historial; el total coincide con las contribuciones vigentes. El ajuste sigue siendo una declaración no autenticada, no una nueva medición. No hay firma ni ledger.
 - La exportación cronometrada valida una declaración y referencia de consigna, sin leerla. Los identificadores deben ser opacos y las notas mínimas. El schema no detecta información sensible dentro de un campo permitido.
 - No se suman ni se deduplican tiempos entre sesiones diferentes. La disponibilidad de zonas horarias depende del runtime. No se probó este incremento con Node.js 22 ni en otro equipo.
-- Drive/Sheets, auditoría mensual e interfaz están pendientes. El caso manual de calibración sigue en `NEXT.md`, asociable a una sesión y **no iniciado**.
+- Al cierre temporal de 2026-09-16, Drive/Sheets, auditoría mensual e interfaz estaban pendientes. El caso manual de calibración figuraba entonces en `NEXT.md`, asociable a una sesión y **no iniciado**. El cierre posterior de CASE-P02 se registra arriba.
 
 ## Fundamento implementado
 
@@ -86,7 +99,7 @@ La corrección acotada posterior añade ocho regresiones: cuatro resultados inco
 - Manifiesto: `40B0068D1519F87288A07DBD440B7FDB1A9E0D44D26DE4722972F1C36EEF5432`.
 - Especificación: `22CFB70C56B8ABD47103680F3913ADDDB3AB2D191DD6680D7ACE71AC40E68C76`.
 
-## No probado / no implementado
+## No probado / no implementado al cierre temporal (2026-09-16)
 
 - Los diez casos semánticos de la Especificación §19: documentados en `tests/acceptance/semantic-cases.md`, sin evaluadora real ni dictamen ejecutado.
 - Calidad académica empírica de los descriptores, calibración, sesgos, veracidad de fuentes, interpretación de consigna y evidencia, determinación semántica de qué constituye un hallazgo crítico y fundamento de puntuaciones. La coherencia estructural entre severidad crítica y `REHACER` sí está implementada y probada.
@@ -95,13 +108,13 @@ La corrección acotada posterior añade ocho regresiones: cuatro resultados inco
 - Instalación limpia mediante `npm ci` en otro equipo y compatibilidad ejecutada con Node.js 22. Sólo se usó el entorno indicado; no se ejecutó auditoría de dependencias.
 - Campus, usuarios, cronómetro automático, currículo, tutores, modelos/servicios externos, credenciales, base de datos, despliegue y publicación: excluidos y ausentes. La nueva misión incorpora reconstrucción temporal a partir de eventos explícitos.
 
-## Pendiente y continuidad
+## Registro histórico de pendiente y continuidad (2026-09-16)
 
 - Especializar y revisar criterios antes de puntuar una actividad; detalles de interpretación y límites en el ADR.
-- Próximo incremento único propuesto en `NEXT.md`: un caso local de calibración con dictamen manual, ahora asociable a una sesión temporal. **No iniciado**.
+- Próximo incremento único propuesto entonces en `NEXT.md`: un caso local de calibración con dictamen manual, asociable a una sesión temporal. **No iniciado** en ese registro histórico; CASE-P02 se cerró posteriormente.
 - La observación temporal queda sujeta a auditoría. Drive/Sheets, auditoría mensual e interfaz permanecen pendientes; no se implementó su integración.
 
-## Git
+## Registro histórico de Git: fundamento y corrección temporal
 
 En el cierre histórico fundacional se verificó `master` sin commits. Al iniciar esta misión se verificó **dev**, árbol limpio y HEAD `773cb39df1212c01375a98012405c58cdfdf2a16`, con el fundamento ya confirmado. `main` y el commit del tag `v0.1.0-foundation` apuntaban a ese mismo fundamento. Esta misión no crea commits, no cambia ramas ni prepara archivos en el índice. Sus modificaciones y archivos nuevos quedan locales para auditoría; `node_modules/` y `dist/` permanecen ignorados.
 
